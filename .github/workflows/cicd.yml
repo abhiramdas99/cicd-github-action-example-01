@@ -11,7 +11,7 @@ jobs:
 
         env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEVELOPMENT_WEBHOOK_URL }}
-            BRANCH_NAME: ${{GITHUB_HEAD_REF}}
+            BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
         permissions:
             id-token: write # This is required for requesting the JWT
             contents: read # This is required for actions/checkout 
