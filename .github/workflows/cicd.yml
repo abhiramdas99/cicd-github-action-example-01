@@ -22,7 +22,7 @@ jobs:
         steps:
             - name: print env variable 
               run : |
-                echo 'its working ${{BRANCH_NAME}}'
+                echo 'its working ${{env.BRANCH_NAME}}'
 
             - name: Slack Notification [on build start]
               uses: act10ns/slack@v1
