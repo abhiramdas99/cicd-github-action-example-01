@@ -1,1 +1,16 @@
-testing 
+name: cicd for development / staging/main branch 
+
+on: 
+    push:
+        branches: [dev,staging,main]
+    workflow_dispatch:
+
+jobs:
+    init:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: message 
+              run: |
+                echo 'welcome'
+
