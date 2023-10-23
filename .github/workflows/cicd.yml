@@ -1,0 +1,34 @@
+name: cicd for development / staging/main branch 
+
+on: 
+    push:
+        branches: [dev,staging,main]
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_DEVELOPMENT_WEBHOOK_URL }}
+            BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
+        permissions:
+            id-token: write # This is required for requesting the JWT
+            contents: read # This is required for actions/checkout 
+            
+        strategy:
+            matrix: 
+                node-version: [16.14.0]
+        steps:
+            - name: print env variable 
+              run : |
+                echo 'its working ${{env.BRANCH_NAME}}'
+
+            - name: Slack Notification [on build start]
+              uses: act10ns/slack@v1
+              with:
+                  status: starting
+                  channel: ${{ env.SLACK_CHANNEL_NAME }}
+                  message: Environment- ${{env.BRANCH_NAME}}, Build started....
+              if: always()
+       
