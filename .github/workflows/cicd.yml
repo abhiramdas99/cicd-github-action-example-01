@@ -29,6 +29,6 @@ jobs:
               with:
                   status: starting
                   channel: ${{ env.SLACK_CHANNEL_NAME }}
-                  message: Environment- Development, Build started...
+                  message: Environment- ${{env.BRANCH_NAME}}, Build started....
               if: always()
        
